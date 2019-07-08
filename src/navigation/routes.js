@@ -12,7 +12,7 @@ import {
   ForgotPasswordScreen,
 } from '@auth';
 import { DashboardScreen } from '@dashboard';
-import { ProfileScreen } from '@profile';
+import { ProfileScreen, PasswordChangeScreen } from '@profile';
 
 /* =============================================================================
 <AuthStack />
@@ -55,6 +55,12 @@ const AppStack = createStackNavigator({
     screen: ProfileScreen,
     navigationOptions: () => ({
       title: 'Profile',
+    }),
+  },
+  PasswordChange: {
+    screen: PasswordChangeScreen,
+    navigationOptions: () => ({
+      title: 'Password change',
     }),
   },
 });

@@ -1,45 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  Container,
-  Content,
-  Div,
-  CustomInputText,
-  Button,
-  FlatButton,
-} from '@common';
+import { Container, Content, Div, CustomInputText, Button } from '@common';
 import { showSnack } from '@snack';
 
 /* =============================================================================
-<Profile />
+<PasswordChange />
 ============================================================================= */
-class Profile extends React.Component {
+class PasswordChange extends React.Component {
   inputText1 = null;
 
   inputText2 = null;
 
   inputText3 = null;
 
-  state = { firstName: '', lastName: '', email: '' };
+  state = { oldPassword: '', newPassword: '', confirmPassword: '' };
 
   /**
-   * when user Profile update
+   * when user password change
    */
-  _handleUpdateProfile = () => {
-    const { firstName, lastName, email } = this.state;
+  _handlePasswordChange = () => {
+    const { oldPassword, newPassword, confirmPassword } = this.state;
     const { showError } = this.props;
     // eslint-disable-next-line no-useless-escape
-    const filter = /^\w+([\.-]?\ w+)*@\w+([\.-]?\ w+)*(\.\w{2,3})+$/;
-    if (firstName && lastName && filter.test(email)) {
+    if (oldPassword && newPassword && newPassword === confirmPassword) {
       showError('okay');
-    } else if (!firstName) {
-      showError('Please enter first name');
-    } else if (!lastName) {
-      showError('Please enter last name');
-    } else if (!email) {
-      showError('Please enter email');
-    } else if (!filter.test(email)) {
-      showError('Enter enter valid email');
+    } else if (!oldPassword) {
+      showError('Please enter old password');
+    } else if (!newPassword) {
+      showError('Please enter new password');
+    } else if (newPassword !== confirmPassword) {
+      showError('Mismatch confirm password');
     } else {
       showError('Something went wrong');
     }
@@ -52,67 +42,55 @@ class Profile extends React.Component {
     this.setState({ [name]: value });
   };
 
-  /**
-   * when user move to password change screen
-   */
-
-  _moveToPasswordChange = () => {
-    const { navigation } = this.props;
-    navigation.navigate('PasswordChange');
-  };
-
   render() {
-    const { firstName, lastName, email } = this.state;
+    const { oldPassword, newPassword, confirmPassword } = this.state;
     return (
       <Container>
         <Content padding={20} center>
           <Div width="100%">
             <CustomInputText
-              value={firstName}
-              placeholder="First name"
+              secureTextEntry
+              value={oldPassword}
+              placeholder="Old password"
               returnKeyType="next"
               reference={input => {
                 this.inputText1 = input;
               }}
-              onChange={text => this._handleInputText('firstName', text)}
+              onChange={text => this._handleInputText('oldPassword', text)}
               onSubmitEditing={() => {
                 this.inputText2.focus();
               }}
             />
             <CustomInputText
-              value={lastName}
-              placeholder="Last name"
+              secureTextEntry
+              value={newPassword}
+              placeholder="New password"
               returnKeyType="next"
               reference={input => {
                 this.inputText2 = input;
               }}
-              onChange={text => this._handleInputText('lastName', text)}
+              onChange={text => this._handleInputText('newPassword', text)}
               onSubmitEditing={() => {
                 this.inputText3.focus();
               }}
             />
             <CustomInputText
-              value={email}
-              placeholder="Email"
-              returnKeyType="next"
+              secureTextEntry
+              value={confirmPassword}
+              placeholder="Confirm password"
+              returnKeyType="go"
               reference={input => {
                 this.inputText3 = input;
               }}
-              onChange={text => this._handleInputText('email', text)}
+              onChange={text => this._handleInputText('confirmPassword', text)}
             />
             <Button
-              title="Update Profile"
+              title="Change password"
               width="100%"
               marginVertical={15}
               backgroundColor="#04A5CF"
-              onPress={this._handleUpdateProfile}
+              onPress={this._handlePasswordChange}
             />
-            <Div center margin={20}>
-              <FlatButton
-                title="Change Password"
-                onPress={this._moveToPasswordChange}
-              />
-            </Div>
           </Div>
         </Content>
       </Container>
@@ -128,7 +106,7 @@ const mapDispatchToProps = dispatch => ({
 
 /* Export
 ============================================================================= */
-export const ProfileScreen = connect(
+export const PasswordChangeScreen = connect(
   null,
   mapDispatchToProps
-)(Profile);
+)(PasswordChange);
