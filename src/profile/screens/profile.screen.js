@@ -1,19 +1,132 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
+import {
+  Container,
+  Content,
+  Div,
+  CustomInputText,
+  Button,
+  FlatButton,
+} from '@common';
+import { showSnack } from '@snack';
 
 /* =============================================================================
 <Profile />
 ============================================================================= */
 class Profile extends React.Component {
+  inputText1 = null;
+
+  inputText2 = null;
+
+  inputText3 = null;
+
+  state = { firstName: '', lastName: '', email: '' };
+
+  /**
+   * when user Profile update
+   */
+  _handleUpdateProfile = () => {
+    const { firstName, lastName, email } = this.state;
+    const { showError } = this.props;
+    // eslint-disable-next-line no-useless-escape
+    const filter = /^\w+([\.-]?\ w+)*@\w+([\.-]?\ w+)*(\.\w{2,3})+$/;
+    if (firstName && lastName && filter.test(email)) {
+      showError('okay');
+    } else if (!firstName) {
+      showError('Please enter first name');
+    } else if (!lastName) {
+      showError('Please enter last name');
+    } else if (!email) {
+      showError('Please enter email');
+    } else if (!filter.test(email)) {
+      showError('Enter enter valid email');
+    } else {
+      showError('Something went wrong');
+    }
+  };
+
+  /**
+   *  when user change the text input
+   */
+  _handleInputText = (name, value) => {
+    this.setState({ [name]: value });
+  };
+
+  /**
+   * when user move to password change screen
+   */
+
+  _moveToPasswordChange = () => {
+    const { navigation } = this.props;
+    navigation.navigate('PasswordChange');
+  };
+
   render() {
+    const { firstName, lastName, email } = this.state;
     return (
-      <View>
-        <Text>Profile Screen</Text>
-      </View>
+      <Container>
+        <Content padding={20} center>
+          <Div width="100%">
+            <CustomInputText
+              value={firstName}
+              placeholder="First name"
+              returnKeyType="next"
+              reference={input => {
+                this.inputText1 = input;
+              }}
+              onChange={text => this._handleInputText('firstName', text)}
+              onSubmitEditing={() => {
+                this.inputText2.focus();
+              }}
+            />
+            <CustomInputText
+              value={lastName}
+              placeholder="Last name"
+              returnKeyType="next"
+              reference={input => {
+                this.inputText2 = input;
+              }}
+              onChange={text => this._handleInputText('lastName', text)}
+              onSubmitEditing={() => {
+                this.inputText3.focus();
+              }}
+            />
+            <CustomInputText
+              value={email}
+              placeholder="Email"
+              returnKeyType="next"
+              reference={input => {
+                this.inputText3 = input;
+              }}
+              onChange={text => this._handleInputText('email', text)}
+            />
+            <Button
+              title="Update Profile"
+              width="100%"
+              marginVertical={15}
+              backgroundColor="#04A5CF"
+              onPress={this._handleUpdateProfile}
+            />
+            <FlatButton
+              title="Change Password"
+              onPress={this._moveToPasswordChange}
+            />
+          </Div>
+        </Content>
+      </Container>
     );
   }
 }
 
+/* map dispatch to props
+============================================================================= */
+const mapDispatchToProps = dispatch => ({
+  showError: msg => dispatch(showSnack(msg)),
+});
+
 /* Export
 ============================================================================= */
-export const ProfileScreen = Profile;
+export const ProfileScreen = connect(
+  null,
+  mapDispatchToProps
+)(Profile);

@@ -1,8 +1,10 @@
+import React from 'react';
 import {
   createSwitchNavigator,
   createStackNavigator,
   createAppContainer,
 } from 'react-navigation';
+import { FlatButton } from '@common';
 import {
   AuthLoadingScreen,
   SignInScreen,
@@ -38,8 +40,15 @@ const AuthStack = createStackNavigator(
 const AppStack = createStackNavigator({
   Dashboard: {
     screen: DashboardScreen,
-    navigationOptions: () => ({
+    navigationOptions: ({ navigation }) => ({
       title: 'Home',
+      headerRight: (
+        <FlatButton
+          color="#04A5CF"
+          title="Profile"
+          onPress={() => navigation.navigate('Profile')}
+        />
+      ),
     }),
   },
   Profile: {
