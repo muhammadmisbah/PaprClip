@@ -12,6 +12,7 @@ type ReactNodeWithoutString = React.ChildrenArray<
 
 type Props = {
   flex?: number,
+  width?: number | string,
   center?: boolean,
   justifyContent?:
     | 'flex-start'
@@ -37,9 +38,10 @@ type Props = {
 ============================================================================= */
 const shadowObj = {
   shadowColor: '#000',
-  shadowOffset: { width: 2, height: 2 },
-  shadowOpacity: 0.8,
-  elevation: 3,
+  shadowOffset: { width: 0, height: 8 },
+  shadowOpacity: 0.44,
+  shadowRadius: 10.32,
+  elevation: 16,
 };
 
 /* =============================================================================
@@ -47,6 +49,7 @@ const shadowObj = {
 ============================================================================= */
 export const Div = ({
   flex,
+  width,
   center,
   alignItems,
   justifyContent,
@@ -63,8 +66,10 @@ export const Div = ({
 }: Props) => (
   <View
     style={[
+      shadow && shadowObj,
       {
         flex,
+        width,
         padding,
         paddingVertical,
         paddingHorizontal,
@@ -75,7 +80,6 @@ export const Div = ({
         alignItems: center ? 'center' : alignItems,
         justifyContent: center ? 'center' : justifyContent,
       },
-      shadow && shadowObj,
       style,
     ]}
   >
@@ -87,9 +91,10 @@ export const Div = ({
 ============================================================================= */
 Div.defaultProps = {
   flex: 0,
+  width: null,
   center: false,
-  justifyContent: '',
-  alignItems: '',
+  justifyContent: null,
+  alignItems: null,
   padding: null,
   paddingVertical: null,
   paddingHorizontal: null,

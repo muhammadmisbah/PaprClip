@@ -1,19 +1,178 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { Image, StyleSheet } from 'react-native';
+import {
+  Container,
+  Content,
+  Div,
+  Span,
+  CustomText,
+  CustomInputText,
+  Button,
+  FlatButton,
+} from '@common';
+import { showSnack } from '@snack';
+import LogoImage from './img/logo.png';
 
 /* =============================================================================
 <SignIn />
 ============================================================================= */
 class SignIn extends React.Component {
+  inputText1 = null;
+
+  inputText2 = null;
+
+  state = { email: '', password: '' };
+
+  /**
+   * when user login with email
+   */
+  _handleLogin = () => {
+    const { email, password } = this.state;
+    const { showError } = this.props;
+    // eslint-disable-next-line no-useless-escape
+    const filter = /^\w+([\.-]?\ w+)*@\w+([\.-]?\ w+)*(\.\w{2,3})+$/;
+    if (filter.test(email) && password.length > 6) {
+      showError('okay');
+    } else if (!email) {
+      showError('Please enter email');
+    } else if (!filter.test(email)) {
+      showError('Enter enter valid email');
+    } else if (!password) {
+      showError('Please enter password');
+    } else if (password.length < 6) {
+      showError('Password length must be 6 digits');
+    } else {
+      showError('Something went wrong');
+    }
+  };
+
+  /**
+   * when user login with facebook
+   */
+  _handleFaceBookLogin = () => {};
+
+  /**
+   * when user login with google
+   */
+  _handleGoogleLogin = () => {};
+
+  /**
+   *  when user change the text input
+   */
+  _handleInputText = (name, value) => {
+    this.setState({ [name]: value });
+  };
+
+  /**
+   *  when user want to move registration page
+   */
+  _moveToRegistration = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Registration');
+  };
+
   render() {
+    const { email, password } = this.state;
     return (
-      <View>
-        <Text>Sign Screen</Text>
-      </View>
+      <Container>
+        <Content
+          padding={20}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Div center>
+            <Image source={LogoImage} style={styles.LogoImageStyle} />
+          </Div>
+          <Div width="100%">
+            <CustomInputText
+              value={email}
+              placeholder="Email"
+              returnKeyType="next"
+              reference={input => {
+                this.inputText1 = input;
+              }}
+              onChange={text => this._handleInputText('email', text)}
+              onSubmitEditing={() => {
+                this.inputText2.focus();
+              }}
+            />
+            <CustomInputText
+              secureTextEntry
+              value={password}
+              placeholder="Password"
+              returnKeyType="next"
+              reference={input => {
+                this.inputText2 = input;
+              }}
+              onChange={text => this._handleInputText('password', text)}
+            />
+            <Button
+              title="Login with email"
+              width="100%"
+              marginVertical={15}
+              backgroundColor="#04A5CF"
+              onPress={this._handleLogin}
+            />
+          </Div>
+          <Div width="100%">
+            <Button
+              bold
+              width="100%"
+              iconName="facebook"
+              title="Login with facebook"
+              color="#FFF"
+              backgroundColor="#4267B2"
+              marginVertical={10}
+              onPress={this._handleFaceBookLogin}
+            />
+            <Button
+              bold
+              width="100%"
+              iconName="google"
+              iconColor="#CD3228"
+              title="Login with google"
+              color="#75758E"
+              marginVertical={10}
+              backgroundColor="#FFF"
+              onPress={this._handleGoogleLogin}
+            />
+          </Div>
+          <Span>
+            <CustomText>Don&apos;t have account?</CustomText>
+            <FlatButton
+              title="Register"
+              color="#04A5CF"
+              marginVertical={20}
+              onPress={this._moveToRegistration}
+            />
+          </Span>
+        </Content>
+      </Container>
     );
   }
 }
 
+/* Styles
+============================================================================= */
+const styles = StyleSheet.create({
+  LogoImageStyle: {
+    width: 150,
+    height: 150,
+    resizeMode: 'stretch',
+    marginVertical: 30,
+  },
+});
+
+/* map dispatch to props
+============================================================================= */
+const mapDispatchToProps = dispatch => ({
+  showError: msg => dispatch(showSnack(msg)),
+});
+
 /* Export
 ============================================================================= */
-export const SignInScreen = SignIn;
+export const SignInScreen = connect(
+  null,
+  mapDispatchToProps
+)(SignIn);

@@ -66,15 +66,15 @@ type Props = {
 };
 
 /* =============================================================================
-<InputText />
+<CustomInputText />
 ============================================================================= */
-class InputText extends React.PureComponent<Props, State> {
+export class CustomInputText extends React.PureComponent<Props, State> {
   /**
    * Default Props
    */
   static defaultProps = {
     marginVertical: 5,
-    labelColor: '#696969',
+    labelColor: '#CECECE',
     backgroundColor: 'transparent',
     label: null,
     iconName: '',
@@ -129,10 +129,10 @@ class InputText extends React.PureComponent<Props, State> {
         ) : null}
         <View
           style={{
-            backgroundColor: editable ? backgroundColor : '#727272',
+            backgroundColor: editable ? backgroundColor : '#CECECE',
             borderWidth: 1,
-            borderRadius: 50,
-            borderColor: active ? '#FFFFFF' : '#727272',
+            borderRadius: 5,
+            borderColor: active ? '#04A5CF' : '#CECECE',
             flexDirection: 'row',
             alignItems: 'center',
           }}
@@ -149,7 +149,7 @@ class InputText extends React.PureComponent<Props, State> {
           ) : null}
           <View
             style={{
-              flex: 1,
+              width: '100%',
               justifyContent: 'center',
               paddingHorizontal: 5,
             }}
@@ -157,7 +157,7 @@ class InputText extends React.PureComponent<Props, State> {
             <TextInput
               ref={reference}
               placeholder={placeholder}
-              placeholderTextColor={editable ? placeholderTextColor : '#727272'}
+              placeholderTextColor={editable ? placeholderTextColor : '#CECECE'}
               value={value}
               onChange={onChange}
               onChangeText={onChangeText}
@@ -171,7 +171,7 @@ class InputText extends React.PureComponent<Props, State> {
               editable={editable}
               returnKeyType={returnKeyType}
               keyboardType={keyboardType}
-              style={{ fontSize: 17, color, paddingVertical: 8 }}
+              style={{ fontSize: 17, color, paddingVertical: 10 }}
             />
           </View>
         </View>
@@ -179,7 +179,3 @@ class InputText extends React.PureComponent<Props, State> {
     );
   }
 }
-
-/* Exports
-============================================================================= */
-export const CustomInputText = InputText;

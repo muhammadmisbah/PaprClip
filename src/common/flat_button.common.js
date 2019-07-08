@@ -53,6 +53,6 @@ FlatButton.defaultProps = {
   paddingHorizontal: 8,
   paddingVertical: 4,
   buttonStyle: {},
-  color: '#EEE',
+  color: '#A7A7A7',
   textStyle: {},
 };

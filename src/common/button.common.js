@@ -3,6 +3,7 @@
 import * as React from 'react';
 import {
   TouchableOpacity,
+  View,
   Text,
   ActivityIndicator,
   Platform,
@@ -11,9 +12,7 @@ import type {
   ViewStyleProp,
   TextStyleProp,
 } from 'react-native/Libraries/StyleSheet/StyleSheet';
-import Icon, {
-  type MaterialIconsGlyphs,
-} from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 /* Flow types
 ========================================================================= */
@@ -28,10 +27,11 @@ type Props = {
   marginVertical?: number,
   marginHorizontal?: number,
   rounded?: boolean,
-  borderRadius: number,
+  borderRadius?: number,
   onPress: Function,
   buttonStyle?: ViewStyleProp,
-  iconName?: MaterialIconsGlyphs,
+  iconName?: any,
+  iconColor?: string,
   loader?: boolean,
   color?: string,
   fontSize?: number,
@@ -58,6 +58,7 @@ export const Button = ({
   onPress,
   buttonStyle,
   iconName,
+  iconColor,
   loader,
   color,
   fontSize,
@@ -78,22 +79,26 @@ export const Button = ({
         paddingHorizontal,
         marginVertical,
         marginHorizontal,
-        borderRadius: rounded ? 50 : borderRadius,
-        justifyContent: 'center',
+        opacity: disabled ? 0.7 : 1,
+        borderRadius: rounded ? 5 : borderRadius,
+        justifyContent: 'space-between',
         alignItems: 'center',
-        shadowOffset: { height: 2, width: 2 },
-        shadowOpacity: 0.5,
-        shadowColor: '#1E1E1E',
-        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+        elevation: 8,
       },
       buttonStyle || null,
     ]}
     onPress={onPress}
-    activeOpacity={0.8}
+    activeOpacity={1}
   >
-    {iconName && !loader ? (
-      <Icon name={iconName} style={{ color, fontSize: 20 }} />
-    ) : null}
+    {iconName ? (
+      <Icon name={iconName} style={{ color: iconColor, fontSize: 20 }} />
+    ) : (
+      <View />
+    )}
     {loader ? (
       <ActivityIndicator
         size={Platform.OS === 'android' ? fontSize + 5 : null}
@@ -114,6 +119,7 @@ export const Button = ({
         {title}
       </Text>
     )}
+    <View />
   </TouchableOpacity>
 );
 
@@ -122,19 +128,21 @@ export const Button = ({
 Button.defaultProps = {
   disabled: false,
   minWidth: 60,
-  height: 40,
-  width: null,
-  backgroundColor: '#0e59c7',
+  height: 45,
+  width: undefined,
+  backgroundColor: '#04A5CF',
   paddingVertical: 10,
   paddingHorizontal: 12,
   marginVertical: null,
   marginHorizontal: null,
-  rounded: false,
+  rounded: true,
+  borderRadius: 5,
   buttonStyle: {},
   iconName: '',
+  iconColor: '#FFFFFF',
   loader: false,
   color: '#FFFFFF',
   fontSize: 15,
-  bold: false,
+  bold: true,
   textStyle: {},
 };
