@@ -89,7 +89,7 @@ class SignIn extends React.Component {
       await GoogleSignIn.askForPlayServicesAsync();
       const { type, user } = await GoogleSignIn.signInAsync();
       if (type === 'success') {
-        alert(`user ${user}`);
+        alert(`user ${JSON.stringify(user)}`);
       }
     } catch ({ message }) {
       alert(message);
