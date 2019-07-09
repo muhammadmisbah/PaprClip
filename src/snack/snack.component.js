@@ -1,7 +1,9 @@
 // @flow
 
 import * as React from 'react';
+import { connect } from 'react-redux';
 import SnackBar from 'react-native-snackbar-component';
+import { hideSnack } from './snack.actions';
 
 /* Flow types
 ============================================================================= */
@@ -14,9 +16,9 @@ type Props = {
 };
 
 /* =============================================================================
-<Snack />
+<SnackComponent />
 ============================================================================= */
-class Snack extends React.PureComponent<Props> {
+class SnackComponent extends React.PureComponent<Props> {
   constructor(props: any) {
     super(props);
     const { action, close } = this.props;
@@ -29,7 +31,7 @@ class Snack extends React.PureComponent<Props> {
 
   render() {
     const { visible, message, type, action, close } = this.props;
-    const color = type === 'error' ? '#E74C3C' : '#3DBA81';
+    const color = type === 'error' ? '#CD3228' : '#3DBA81';
     if (visible) {
       return (
         <SnackBar
@@ -47,6 +49,24 @@ class Snack extends React.PureComponent<Props> {
   }
 }
 
-/* Exports
+/* map state to props
 ============================================================================= */
-export default Snack;
+const mapStateToProps = ({ Snack: SnackReducer }) => ({
+  visible: SnackReducer.visible,
+  message: SnackReducer.message,
+  type: SnackReducer.type,
+  action: SnackReducer.action,
+});
+
+/* map dispatch to props
+============================================================================= */
+const mapDispatchToProps = dispatch => ({
+  close: () => dispatch(hideSnack()),
+});
+
+/* Export
+============================================================================= */
+export const Snack = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SnackComponent);
