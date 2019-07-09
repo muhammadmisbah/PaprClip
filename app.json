@@ -20,9 +20,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["assets/*"],
     "facebookScheme": "fb2064932817149430",
     "facebookAppId": "2064932817149430",
     "facebookDisplayName": "PaprClip",
