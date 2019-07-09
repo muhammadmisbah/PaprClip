@@ -58,8 +58,8 @@ export const Container = ({
 ============================================================================= */
 Container.defaultProps = {
   padding: 0,
-  justifyContent: '',
-  alignItems: 'flex-start',
+  justifyContent: null,
+  alignItems: null,
   backgroundColor: '#FFF',
   center: false,
   style: {},

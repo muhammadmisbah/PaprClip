@@ -78,7 +78,7 @@ Span.defaultProps = {
   flex: 0,
   center: false,
   alignItems: 'center',
-  justifyContent: undefined,
+  justifyContent: null,
   padding: null,
   paddingVertical: null,
   paddingHorizontal: null,

@@ -72,7 +72,7 @@ const MainStack = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     Auth: AuthStack,
-    App: AppStack,
+    // App: AppStack,
   },
   {
     initialRouteName: 'AuthLoading',

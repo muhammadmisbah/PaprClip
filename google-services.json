@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "675137037686",
+    "firebase_url": "https://paprclip23.firebaseio.com",
+    "project_id": "paprclip23",
+    "storage_bucket": "paprclip23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675137037686:android:58717eb221b4c011",
+        "android_client_info": {
+          "package_name": "com.paprclip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675137037686-gp498c2rmu967roou71cs42m0u6qv749.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAETay5nFbMbygPMHoYAePLD6K9mqB4t98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675137037686-gp498c2rmu967roou71cs42m0u6qv749.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "675137037686-36v57fl107b81rrfe32d5f7iv8kqi0dh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.paprclip"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

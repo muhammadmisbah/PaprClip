@@ -23,8 +23,22 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "facebookScheme": "fb2064932817149430",
+    "facebookAppId": "2064932817149430",
+    "facebookDisplayName": "PaprClip",
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.paprclip",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.675137037686-36v57fl107b81rrfe32d5f7iv8kqi0dh"
+        }
+      }
+    },
+    "android": {
+      "package": "com.paprclip",
+      "googleServicesFile": "./google-services.json"
+    },
+    "description": ""
   }
 }
