@@ -171,7 +171,12 @@ export class CustomInputText extends React.PureComponent<Props, State> {
               editable={editable}
               returnKeyType={returnKeyType}
               keyboardType={keyboardType}
-              style={{ fontSize: 17, color, paddingVertical: 10 }}
+              style={{
+                fontSize: 17,
+                color,
+                paddingVertical: 10,
+                paddingHorizontal: 5,
+              }}
             />
           </View>
         </View>
