@@ -5,12 +5,7 @@ import {
   createAppContainer,
 } from 'react-navigation';
 import { FlatButton } from '@common';
-import {
-  AuthLoadingScreen,
-  SignInScreen,
-  RegistrationScreen,
-  ForgotPasswordScreen,
-} from '@auth';
+import { AuthLoadingScreen, SignInScreen, RegistrationScreen } from '@auth';
 import { DashboardScreen } from '@dashboard';
 import { ProfileScreen, PasswordChangeScreen } from '@profile';
 
@@ -24,9 +19,6 @@ const AuthStack = createStackNavigator(
     },
     Registration: {
       screen: RegistrationScreen,
-    },
-    ForgotPassword: {
-      screen: ForgotPasswordScreen,
     },
   },
   {
@@ -72,7 +64,7 @@ const MainStack = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     Auth: AuthStack,
-    // App: AppStack,
+    App: AppStack,
   },
   {
     initialRouteName: 'AuthLoading',
