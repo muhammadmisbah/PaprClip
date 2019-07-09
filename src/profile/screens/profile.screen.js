@@ -63,7 +63,10 @@ class Profile extends React.Component {
   /**
    * when user logout
    */
-  _handleLogout = () => {};
+  _handleLogout = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Auth');
+  };
 
   render() {
     const { firstName, lastName, email } = this.state;
