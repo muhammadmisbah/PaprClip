@@ -31,11 +31,11 @@ class SignIn extends React.Component {
    */
   _handleLogin = () => {
     const { email, password } = this.state;
-    const { showError } = this.props;
+    const { showError, navigation } = this.props;
     // eslint-disable-next-line no-useless-escape
     const filter = /^\w+([\.-]?\ w+)*@\w+([\.-]?\ w+)*(\.\w{2,3})+$/;
     if (filter.test(email) && password.length > 6) {
-      showError('okay');
+      navigation.navigate('App');
     } else if (!email) {
       showError('Please enter email');
     } else if (!filter.test(email)) {
@@ -131,7 +131,7 @@ class SignIn extends React.Component {
               reference={input => {
                 this.inputText1 = input;
               }}
-              onChange={text => this._handleInputText('email', text)}
+              onChangeText={text => this._handleInputText('email', text)}
               onSubmitEditing={() => {
                 this.inputText2.focus();
               }}
@@ -144,7 +144,7 @@ class SignIn extends React.Component {
               reference={input => {
                 this.inputText2 = input;
               }}
-              onChange={text => this._handleInputText('password', text)}
+              onChangeText={text => this._handleInputText('password', text)}
             />
             <Button
               title="Login with email"

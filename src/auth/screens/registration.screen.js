@@ -49,7 +49,7 @@ class Registration extends React.Component {
       password,
       confirmPassword,
     } = this.state;
-    const { showError } = this.props;
+    const { showError, navigation } = this.props;
     // eslint-disable-next-line no-useless-escape
     const filter = /^\w+([\.-]?\ w+)*@\w+([\.-]?\ w+)*(\.\w{2,3})+$/;
     if (
@@ -59,7 +59,7 @@ class Registration extends React.Component {
       password.length > 6 &&
       password === confirmPassword
     ) {
-      showError('okay');
+      navigation.navigate('App');
     } else if (!firstName) {
       showError('Please enter first name');
     } else if (!lastName) {
@@ -120,7 +120,7 @@ class Registration extends React.Component {
               reference={input => {
                 this.inputText1 = input;
               }}
-              onChange={text => this._handleInputText('firstName', text)}
+              onChangeText={text => this._handleInputText('firstName', text)}
               onSubmitEditing={() => {
                 this.inputText2.focus();
               }}
@@ -132,7 +132,7 @@ class Registration extends React.Component {
               reference={input => {
                 this.inputText2 = input;
               }}
-              onChange={text => this._handleInputText('lastName', text)}
+              onChangeText={text => this._handleInputText('lastName', text)}
               onSubmitEditing={() => {
                 this.inputText3.focus();
               }}
@@ -144,7 +144,7 @@ class Registration extends React.Component {
               reference={input => {
                 this.inputText3 = input;
               }}
-              onChange={text => this._handleInputText('email', text)}
+              onChangeText={text => this._handleInputText('email', text)}
               onSubmitEditing={() => {
                 this.inputText4.focus();
               }}
@@ -157,7 +157,7 @@ class Registration extends React.Component {
               reference={input => {
                 this.inputText4 = input;
               }}
-              onChange={text => this._handleInputText('password', text)}
+              onChangeText={text => this._handleInputText('password', text)}
               onSubmitEditing={() => {
                 this.inputText5.focus();
               }}
@@ -170,7 +170,9 @@ class Registration extends React.Component {
               reference={input => {
                 this.inputText5 = input;
               }}
-              onChange={text => this._handleInputText('confirmPassword', text)}
+              onChangeText={text =>
+                this._handleInputText('confirmPassword', text)
+              }
               onSubmitEditing={this._handleRegistration}
             />
             <Button

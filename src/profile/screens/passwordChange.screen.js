@@ -56,7 +56,7 @@ class PasswordChange extends React.Component {
               reference={input => {
                 this.inputText1 = input;
               }}
-              onChange={text => this._handleInputText('oldPassword', text)}
+              onChangeText={text => this._handleInputText('oldPassword', text)}
               onSubmitEditing={() => {
                 this.inputText2.focus();
               }}
@@ -69,7 +69,7 @@ class PasswordChange extends React.Component {
               reference={input => {
                 this.inputText2 = input;
               }}
-              onChange={text => this._handleInputText('newPassword', text)}
+              onChangeText={text => this._handleInputText('newPassword', text)}
               onSubmitEditing={() => {
                 this.inputText3.focus();
               }}
@@ -82,7 +82,9 @@ class PasswordChange extends React.Component {
               reference={input => {
                 this.inputText3 = input;
               }}
-              onChange={text => this._handleInputText('confirmPassword', text)}
+              onChangeText={text =>
+                this._handleInputText('confirmPassword', text)
+              }
             />
             <Button
               title="Change password"

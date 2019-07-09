@@ -82,7 +82,7 @@ class Profile extends React.Component {
               reference={input => {
                 this.inputText1 = input;
               }}
-              onChange={text => this._handleInputText('firstName', text)}
+              onChangeText={text => this._handleInputText('firstName', text)}
               onSubmitEditing={() => {
                 this.inputText2.focus();
               }}
@@ -94,7 +94,7 @@ class Profile extends React.Component {
               reference={input => {
                 this.inputText2 = input;
               }}
-              onChange={text => this._handleInputText('lastName', text)}
+              onChangeText={text => this._handleInputText('lastName', text)}
               onSubmitEditing={() => {
                 this.inputText3.focus();
               }}
@@ -106,7 +106,7 @@ class Profile extends React.Component {
               reference={input => {
                 this.inputText3 = input;
               }}
-              onChange={text => this._handleInputText('email', text)}
+              onChangeText={text => this._handleInputText('email', text)}
             />
             <Button
               title="Update Profile"
