@@ -19,10 +19,9 @@ type Props = {
 <SnackComponent />
 ============================================================================= */
 class SnackComponent extends React.PureComponent<Props> {
-  constructor(props: any) {
-    super(props);
-    const { action, close } = this.props;
-    if (!action) {
+  componentDidUpdate() {
+    const { visible, action, close } = this.props;
+    if (visible && !action) {
       setTimeout(() => {
         close();
       }, 5000);
