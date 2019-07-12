@@ -58,6 +58,7 @@ class SignIn extends React.Component {
       const { type, token } = await Facebook.logInWithReadPermissionsAsync(
         '2064932817149430',
         {
+          behavior: 'system',
           permissions: ['public_profile', 'email'],
         }
       );
@@ -147,7 +148,7 @@ class SignIn extends React.Component {
               onChangeText={text => this._handleInputText('password', text)}
             />
             <Button
-              title="Login with email"
+              title="SignIn with email"
               width="100%"
               marginVertical={15}
               backgroundColor="#04A5CF"
@@ -159,7 +160,7 @@ class SignIn extends React.Component {
               bold
               width="100%"
               iconName="facebook"
-              title="Login with facebook"
+              title="SignIn with facebook"
               color="#FFF"
               backgroundColor="#4267B2"
               marginVertical={10}
@@ -170,7 +171,7 @@ class SignIn extends React.Component {
               width="100%"
               iconName="google"
               iconColor="#CD3228"
-              title="Login with google"
+              title="SignIn with google"
               color="#75758E"
               marginVertical={10}
               backgroundColor="#FFF"
