@@ -8,6 +8,8 @@ import {
   Button,
   FlatButton,
 } from '@common';
+
+import { logout } from '@auth';
 import { showSnack } from '@snack';
 
 /* =============================================================================
@@ -63,9 +65,10 @@ class Profile extends React.Component {
   /**
    * when user logout
    */
-  _handleLogout = () => {
-    const { navigation } = this.props;
-    navigation.navigate('Auth');
+  _handleLogout = async () => {
+    const { userLogout, navigation } = this.props;
+    const exitCode = await userLogout();
+    if (exitCode) navigation.navigate('Auth');
   };
 
   render() {
@@ -143,6 +146,7 @@ class Profile extends React.Component {
 /* map dispatch to props
 ============================================================================= */
 const mapDispatchToProps = dispatch => ({
+  userLogout: () => dispatch(logout()),
   showError: msg => dispatch(showSnack(msg)),
 });
 

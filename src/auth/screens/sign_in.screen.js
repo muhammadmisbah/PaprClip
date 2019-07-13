@@ -13,8 +13,10 @@ import {
   Button,
   FlatButton,
 } from '@common';
-import { showSnack } from '@snack';
 import LogoImage from './img/logo.png';
+
+import { login } from '../auth.actions';
+import { showSnack } from '@snack';
 
 /* =============================================================================
 <SignIn />
@@ -29,13 +31,14 @@ class SignIn extends React.Component {
   /**
    * when user login with email
    */
-  _handleLogin = () => {
+  _handleLogin = async () => {
     const { email, password } = this.state;
-    const { showError, navigation } = this.props;
+    const { userLogin, showError, navigation } = this.props;
     // eslint-disable-next-line no-useless-escape
     const filter = /^\w+([\.-]?\ w+)*@\w+([\.-]?\ w+)*(\.\w{2,3})+$/;
-    if (filter.test(email) && password.length > 6) {
-      navigation.navigate('App');
+    if (filter.test(email) && password.length >= 6) {
+      const exitCode = await userLogin({ email, password });
+      if (exitCode) navigation.navigate('App');
     } else if (!email) {
       showError('Please enter email');
     } else if (!filter.test(email)) {
@@ -114,6 +117,7 @@ class SignIn extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const { loginLoader } = this.props;
     return (
       <Container>
         <Content
@@ -152,6 +156,7 @@ class SignIn extends React.Component {
               width="100%"
               marginVertical={15}
               backgroundColor="#04A5CF"
+              loader={loginLoader}
               onPress={this._handleLogin}
             />
           </Div>
@@ -204,15 +209,22 @@ const styles = StyleSheet.create({
   },
 });
 
+/* map state to props
+============================================================================= */
+const mapStateToProps = ({ Auth }) => ({
+  loginLoader: Auth.loginLoader,
+});
+
 /* map dispatch to props
 ============================================================================= */
 const mapDispatchToProps = dispatch => ({
+  userLogin: user => dispatch(login(user)),
   showError: msg => dispatch(showSnack(msg)),
 });
 
 /* Export
 ============================================================================= */
 export const SignInScreen = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SignIn);

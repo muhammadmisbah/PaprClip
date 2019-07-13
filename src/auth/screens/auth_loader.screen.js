@@ -1,5 +1,7 @@
 import React from 'react';
-import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
+import { connect } from 'react-redux';
+import { ActivityIndicator, StatusBar, View } from 'react-native';
+import { loginStatus } from '../auth.actions';
 
 /* =============================================================================
 <AuthLoading />
@@ -10,17 +12,16 @@ class AuthLoading extends React.Component {
     this._bootstrapAsync();
   }
 
-  // Fetch the token from storage then navigate to our appropriate place
+  // check user login then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    const { navigation } = this.props;
-    const userToken = await AsyncStorage.getItem('userToken');
+    const { userLoginStatus, navigation } = this.props;
+    const isAuthenticated = await userLoginStatus();
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    navigation.navigate(userToken ? 'App' : 'Auth');
+    navigation.navigate(isAuthenticated ? 'App' : 'Auth');
   };
 
-  // Render any loading content that you like here
   render() {
     return (
       <View>
@@ -30,7 +31,15 @@ class AuthLoading extends React.Component {
     );
   }
 }
+/* map dispatch to props
+============================================================================= */
+const mapDispatchToProps = dispatch => ({
+  userLoginStatus: () => dispatch(loginStatus()),
+});
 
 /* Export
 ============================================================================= */
-export const AuthLoadingScreen = AuthLoading;
+export const AuthLoadingScreen = connect(
+  null,
+  mapDispatchToProps
+)(AuthLoading);

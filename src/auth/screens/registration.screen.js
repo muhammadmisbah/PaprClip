@@ -11,8 +11,10 @@ import {
   Button,
   FlatButton,
 } from '@common';
-import { showSnack } from '@snack';
 import LogoImage from './img/logo.png';
+
+import { registration } from '../auth.actions';
+import { showSnack } from '@snack';
 
 /* =============================================================================
 <Registration />
@@ -41,7 +43,7 @@ class Registration extends React.Component {
   /**
    * when user registration
    */
-  _handleRegistration = () => {
+  _handleRegistration = async () => {
     const {
       firstName,
       lastName,
@@ -49,17 +51,23 @@ class Registration extends React.Component {
       password,
       confirmPassword,
     } = this.state;
-    const { showError, navigation } = this.props;
+    const { userRegistration, showError, navigation } = this.props;
     // eslint-disable-next-line no-useless-escape
     const filter = /^\w+([\.-]?\ w+)*@\w+([\.-]?\ w+)*(\.\w{2,3})+$/;
     if (
       firstName &&
       lastName &&
       filter.test(email) &&
-      password.length > 6 &&
+      password.length >= 6 &&
       password === confirmPassword
     ) {
-      navigation.navigate('App');
+      const exitCode = await userRegistration({
+        firstName,
+        lastName,
+        email,
+        password,
+      });
+      if (exitCode) navigation.navigate('App');
     } else if (!firstName) {
       showError('Please enter first name');
     } else if (!lastName) {
@@ -102,6 +110,7 @@ class Registration extends React.Component {
       password,
       confirmPassword,
     } = this.state;
+    const { loader } = this.props;
     return (
       <Container>
         <Content
@@ -180,6 +189,7 @@ class Registration extends React.Component {
               width="100%"
               marginVertical={15}
               backgroundColor="#04A5CF"
+              loader={loader}
               onPress={this._handleRegistration}
             />
           </Div>
@@ -209,15 +219,21 @@ const styles = StyleSheet.create({
   },
 });
 
+/* map state to props
+============================================================================= */
+const mapStateToProps = ({ Auth }) => ({
+  loader: Auth.registrationLoader,
+});
 /* map dispatch to props
 ============================================================================= */
 const mapDispatchToProps = dispatch => ({
+  userRegistration: user => dispatch(registration(user)),
   showError: msg => dispatch(showSnack(msg)),
 });
 
 /* Export
 ============================================================================= */
 export const RegistrationScreen = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Registration);
