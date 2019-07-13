@@ -85,7 +85,8 @@ class Profile extends React.Component {
 
   render() {
     const { firstName, lastName, email } = this.state;
-    const { loader } = this.props;
+    const { loader, user } = this.props;
+    const disable = !(user && (user.facebookUser || user.googleUser));
     return (
       <Container>
         <Content
@@ -96,6 +97,7 @@ class Profile extends React.Component {
           <Div flex={1} center width="100%">
             <CustomInputText
               value={firstName}
+              editable={disable}
               placeholder="First name"
               returnKeyType="next"
               reference={input => {
@@ -108,6 +110,7 @@ class Profile extends React.Component {
             />
             <CustomInputText
               value={lastName}
+              editable={disable}
               placeholder="Last name"
               returnKeyType="next"
               reference={input => {
@@ -120,6 +123,7 @@ class Profile extends React.Component {
             />
             <CustomInputText
               value={email}
+              editable={disable}
               placeholder="Email"
               returnKeyType="next"
               reference={input => {
@@ -133,14 +137,17 @@ class Profile extends React.Component {
               marginVertical={15}
               backgroundColor="#04A5CF"
               loader={loader}
+              disabled={!disable}
               onPress={this._handleUpdateProfile}
             />
-            <Div center margin={20}>
-              <FlatButton
-                title="Change Password"
-                onPress={this._moveToPasswordChange}
-              />
-            </Div>
+            {disable ? (
+              <Div center margin={20}>
+                <FlatButton
+                  title="Change Password"
+                  onPress={this._moveToPasswordChange}
+                />
+              </Div>
+            ) : null}
           </Div>
           <Div width="100%">
             <Button
