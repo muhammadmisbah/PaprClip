@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ActivityIndicator, StatusBar, View } from 'react-native';
+import { ActivityIndicator } from 'react-native';
+import { Div } from '@common';
 import { loginStatus } from '../auth.actions';
 
 /* =============================================================================
@@ -24,10 +25,9 @@ class AuthLoading extends React.Component {
 
   render() {
     return (
-      <View>
-        <ActivityIndicator />
-        <StatusBar barStyle="default" />
-      </View>
+      <Div flex={1} center>
+        <ActivityIndicator size="large" color="#3d6ddd" />
+      </Div>
     );
   }
 }
