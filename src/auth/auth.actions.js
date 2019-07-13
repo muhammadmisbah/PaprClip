@@ -1,6 +1,12 @@
 import { AsyncStorage } from 'react-native';
 import { api } from '@utils';
-import { LOGIN, LOGIN_STATUS, REGISTRATION, LOGOUT } from './auth.type';
+import {
+  LOGIN,
+  FACEBOOK_LOGIN,
+  LOGIN_STATUS,
+  REGISTRATION,
+  LOGOUT,
+} from './auth.type';
 import { showSnack } from '@snack';
 
 /**
@@ -16,6 +22,24 @@ export const login = user => async dispatch => {
     return 1;
   } catch ({ message }) {
     dispatch({ type: LOGIN.ERROR });
+    dispatch(showSnack(message));
+    return 0;
+  }
+};
+
+/**
+ * FACEBOOK_LOGIN
+ */
+export const facebookLogin = access_token => async dispatch => {
+  let res;
+  try {
+    dispatch({ type: FACEBOOK_LOGIN.LOADING });
+    res = await api('/auth/facebook_login', 'post', { access_token });
+    await AsyncStorage.setItem('auth_token', res.token);
+    dispatch({ type: FACEBOOK_LOGIN.SUCCESS, payload: res.user });
+    return 1;
+  } catch ({ message }) {
+    dispatch({ type: FACEBOOK_LOGIN.ERROR });
     dispatch(showSnack(message));
     return 0;
   }

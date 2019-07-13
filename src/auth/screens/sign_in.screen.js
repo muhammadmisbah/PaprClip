@@ -15,7 +15,7 @@ import {
 } from '@common';
 import LogoImage from './img/logo.png';
 
-import { login } from '../auth.actions';
+import { login, facebookLogin } from '../auth.actions';
 import { showSnack } from '@snack';
 
 /* =============================================================================
@@ -56,26 +56,22 @@ class SignIn extends React.Component {
    * when user login with facebook
    */
   _handleFaceBookLogin = async () => {
-    const { showError } = this.props;
+    const { userFacebookLogin, showError, navigation } = this.props;
     try {
       const { type, token } = await Facebook.logInWithReadPermissionsAsync(
         '2064932817149430',
         {
-          behavior: 'system',
           permissions: ['public_profile', 'email'],
         }
       );
       if (type === 'success') {
-        // Get the user's name using Facebook's Graph API
-        const response = await fetch(
-          `https://graph.facebook.com/me?access_token=${token}`
-        );
-        alert(`Logged in as ${(await response.json()).name}!`);
+        const exitCode = await userFacebookLogin(token);
+        if (exitCode) navigation.navigate('App');
       } else {
-        // type === 'cancel'
         showError('Cancel facebook login');
       }
     } catch ({ message }) {
+      // eslint-disable-next-line no-alert
       alert(message);
     }
   };
@@ -117,7 +113,7 @@ class SignIn extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { loginLoader } = this.props;
+    const { loginLoader, facebookLoader } = this.props;
     return (
       <Container>
         <Content
@@ -169,6 +165,7 @@ class SignIn extends React.Component {
               color="#FFF"
               backgroundColor="#4267B2"
               marginVertical={10}
+              loader={facebookLoader}
               onPress={this._handleFaceBookLogin}
             />
             <Button
@@ -213,12 +210,14 @@ const styles = StyleSheet.create({
 ============================================================================= */
 const mapStateToProps = ({ Auth }) => ({
   loginLoader: Auth.loginLoader,
+  facebookLoader: Auth.facebookLoader,
 });
 
 /* map dispatch to props
 ============================================================================= */
 const mapDispatchToProps = dispatch => ({
   userLogin: user => dispatch(login(user)),
+  userFacebookLogin: token => dispatch(facebookLogin(token)),
   showError: msg => dispatch(showSnack(msg)),
 });
 

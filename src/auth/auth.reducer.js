@@ -1,4 +1,10 @@
-import { LOGIN, LOGIN_STATUS, REGISTRATION, LOGOUT } from './auth.type';
+import {
+  LOGIN,
+  FACEBOOK_LOGIN,
+  LOGIN_STATUS,
+  REGISTRATION,
+  LOGOUT,
+} from './auth.type';
 
 /* ============================================================================
   INITIAL_STATE
@@ -7,6 +13,7 @@ const INITIAL_STATE = {
   user: null,
   isAuthenticated: false,
   loginLoader: false,
+  facebookLoader: false,
   registrationLoader: false,
 };
 
@@ -28,6 +35,19 @@ export const authReducer = (state = INITIAL_STATE, action) => {
       };
     case LOGIN.ERROR:
       return { ...state, loginLoader: false };
+
+    // FACEBOOK_LOGIN
+    case FACEBOOK_LOGIN.LOADING:
+      return { ...state, facebookLoader: true };
+    case FACEBOOK_LOGIN.SUCCESS:
+      return {
+        ...state,
+        facebookLoader: false,
+        isAuthenticated: true,
+        user: payload,
+      };
+    case FACEBOOK_LOGIN.ERROR:
+      return { ...state, facebookLoader: false };
 
     // LOGIN_STATUS
     case LOGIN_STATUS.SUCCESS:
