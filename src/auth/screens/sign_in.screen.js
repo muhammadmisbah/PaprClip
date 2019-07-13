@@ -15,7 +15,7 @@ import {
 } from '@common';
 import LogoImage from './img/logo.png';
 
-import { login, facebookLogin } from '../auth.actions';
+import { login, facebookLogin, googleLogin } from '../auth.actions';
 import { showSnack } from '@snack';
 
 /* =============================================================================
@@ -80,7 +80,7 @@ class SignIn extends React.Component {
    * when user login with google
    */
   _handleGoogleLogin = async () => {
-    // const { showError } = this.props;
+    const { userGoogleLogin, navigation } = this.props;
     try {
       await GoogleSignIn.initAsync({
         clientId:
@@ -89,9 +89,16 @@ class SignIn extends React.Component {
       await GoogleSignIn.askForPlayServicesAsync();
       const { type, user } = await GoogleSignIn.signInAsync();
       if (type === 'success') {
-        alert(`user ${JSON.stringify(user)}`);
+        const exitCode = await userGoogleLogin({
+          uid: user.uid,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        });
+        if (exitCode) navigation.navigate('App');
       }
     } catch ({ message }) {
+      // eslint-disable-next-line no-alert
       alert(message);
     }
   };
@@ -113,7 +120,7 @@ class SignIn extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { loginLoader, facebookLoader } = this.props;
+    const { loginLoader, facebookLoader, googleLoader } = this.props;
     return (
       <Container>
         <Content
@@ -177,6 +184,7 @@ class SignIn extends React.Component {
               color="#75758E"
               marginVertical={10}
               backgroundColor="#FFF"
+              loader={googleLoader}
               onPress={this._handleGoogleLogin}
             />
           </Div>
@@ -211,6 +219,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ Auth }) => ({
   loginLoader: Auth.loginLoader,
   facebookLoader: Auth.facebookLoader,
+  googleLoader: Auth.googleLoader,
 });
 
 /* map dispatch to props
@@ -218,6 +227,7 @@ const mapStateToProps = ({ Auth }) => ({
 const mapDispatchToProps = dispatch => ({
   userLogin: user => dispatch(login(user)),
   userFacebookLogin: token => dispatch(facebookLogin(token)),
+  userGoogleLogin: user => dispatch(googleLogin(user)),
   showError: msg => dispatch(showSnack(msg)),
 });
 

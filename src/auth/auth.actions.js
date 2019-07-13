@@ -3,6 +3,7 @@ import { api } from '@utils';
 import {
   LOGIN,
   FACEBOOK_LOGIN,
+  GOOGLE_LOGIN,
   LOGIN_STATUS,
   REGISTRATION,
   LOGOUT,
@@ -40,6 +41,24 @@ export const facebookLogin = access_token => async dispatch => {
     return 1;
   } catch ({ message }) {
     dispatch({ type: FACEBOOK_LOGIN.ERROR });
+    dispatch(showSnack(message));
+    return 0;
+  }
+};
+
+/**
+ * GOOGLE_LOGIN
+ */
+export const googleLogin = user => async dispatch => {
+  let res;
+  try {
+    dispatch({ type: GOOGLE_LOGIN.LOADING });
+    res = await api('/auth/google_login', 'post', user);
+    await AsyncStorage.setItem('auth_token', res.token);
+    dispatch({ type: GOOGLE_LOGIN.SUCCESS, payload: res.user });
+    return 1;
+  } catch ({ message }) {
+    dispatch({ type: GOOGLE_LOGIN.ERROR });
     dispatch(showSnack(message));
     return 0;
   }

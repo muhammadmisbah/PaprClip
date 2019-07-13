@@ -1,6 +1,7 @@
 import {
   LOGIN,
   FACEBOOK_LOGIN,
+  GOOGLE_LOGIN,
   LOGIN_STATUS,
   REGISTRATION,
   LOGOUT,
@@ -14,6 +15,7 @@ const INITIAL_STATE = {
   isAuthenticated: false,
   loginLoader: false,
   facebookLoader: false,
+  googleLoader: false,
   registrationLoader: false,
 };
 
@@ -49,6 +51,19 @@ export const authReducer = (state = INITIAL_STATE, action) => {
     case FACEBOOK_LOGIN.ERROR:
       return { ...state, facebookLoader: false };
 
+    // GOOGLE_LOGIN
+    case GOOGLE_LOGIN.LOADING:
+      return { ...state, googleLoader: true };
+    case GOOGLE_LOGIN.SUCCESS:
+      return {
+        ...state,
+        googleLoader: false,
+        isAuthenticated: true,
+        user: payload,
+      };
+    case GOOGLE_LOGIN.ERROR:
+      return { ...state, googleLoader: false };
+
     // LOGIN_STATUS
     case LOGIN_STATUS.SUCCESS:
       return {
@@ -73,6 +88,7 @@ export const authReducer = (state = INITIAL_STATE, action) => {
     // LOGOUT
     case LOGOUT.SUCCESS:
       return { ...INITIAL_STATE };
+
     default:
       return state;
   }
