@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { authReducer } from '@auth';
+import { profileReducer } from '@profile';
 import { snackReducer } from '@snack';
 
 /* ============================================================================
@@ -7,6 +8,7 @@ import { snackReducer } from '@snack';
 ============================================================================= */
 const Reducer = combineReducers({
   Auth: authReducer,
+  Profile: profileReducer,
   Snack: snackReducer,
 });
 

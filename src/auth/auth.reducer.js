@@ -6,6 +6,7 @@ import {
   REGISTRATION,
   LOGOUT,
 } from './auth.type';
+import { UPDATE_PROFILE } from '../profile/profile.type';
 
 /* ============================================================================
   INITIAL_STATE
@@ -84,6 +85,13 @@ export const authReducer = (state = INITIAL_STATE, action) => {
       };
     case REGISTRATION.ERROR:
       return { ...state, registrationLoader: false };
+
+    // UPDATE_PROFILE
+    case UPDATE_PROFILE.SUCCESS:
+      return {
+        ...state,
+        user: payload,
+      };
 
     // LOGOUT
     case LOGOUT.SUCCESS:

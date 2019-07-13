@@ -72,7 +72,7 @@ export const loginStatus = () => async dispatch => {
   try {
     dispatch({ type: LOGIN_STATUS.LOADING });
     res = await api('/auth/status');
-    dispatch({ type: LOGIN_STATUS.SUCCESS, payload: res.user });
+    dispatch({ type: LOGIN_STATUS.SUCCESS, payload: res });
     return 1;
   } catch ({ message }) {
     dispatch(logout());

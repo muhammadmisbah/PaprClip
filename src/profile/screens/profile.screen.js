@@ -9,6 +9,7 @@ import {
   FlatButton,
 } from '@common';
 
+import { updateProfile } from '../profile.actions';
 import { logout } from '@auth';
 import { showSnack } from '@snack';
 
@@ -24,16 +25,27 @@ class Profile extends React.Component {
 
   state = { firstName: '', lastName: '', email: '' };
 
+  componentDidMount() {
+    const { user } = this.props;
+    if (user) {
+      this.setState({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      });
+    }
+  }
+
   /**
    * when user Profile update
    */
   _handleUpdateProfile = () => {
     const { firstName, lastName, email } = this.state;
-    const { showError } = this.props;
+    const { updateUserProfile, showError } = this.props;
     // eslint-disable-next-line no-useless-escape
     const filter = /^\w+([\.-]?\ w+)*@\w+([\.-]?\ w+)*(\.\w{2,3})+$/;
     if (firstName && lastName && filter.test(email)) {
-      showError('okay');
+      updateUserProfile({ firstName, lastName, email });
     } else if (!firstName) {
       showError('Please enter first name');
     } else if (!lastName) {
@@ -73,6 +85,7 @@ class Profile extends React.Component {
 
   render() {
     const { firstName, lastName, email } = this.state;
+    const { loader } = this.props;
     return (
       <Container>
         <Content
@@ -119,6 +132,7 @@ class Profile extends React.Component {
               width="100%"
               marginVertical={15}
               backgroundColor="#04A5CF"
+              loader={loader}
               onPress={this._handleUpdateProfile}
             />
             <Div center margin={20}>
@@ -142,17 +156,24 @@ class Profile extends React.Component {
     );
   }
 }
+/* map state to props
+============================================================================= */
+const mapStateToProps = ({ Auth, Profile: ProfileReducer }) => ({
+  user: Auth.user,
+  loader: ProfileReducer.profileLoader,
+});
 
 /* map dispatch to props
 ============================================================================= */
 const mapDispatchToProps = dispatch => ({
   userLogout: () => dispatch(logout()),
+  updateUserProfile: data => dispatch(updateProfile(data)),
   showError: msg => dispatch(showSnack(msg)),
 });
 
 /* Export
 ============================================================================= */
 export const ProfileScreen = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Profile);
