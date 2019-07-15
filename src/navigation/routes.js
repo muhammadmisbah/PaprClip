@@ -3,6 +3,7 @@ import {
   createSwitchNavigator,
   createStackNavigator,
   createAppContainer,
+  HeaderBackButton,
 } from 'react-navigation';
 import { FlatButton } from '@common';
 import { AuthLoadingScreen, SignInScreen, RegistrationScreen } from '@auth';
@@ -55,8 +56,15 @@ const AppStack = createStackNavigator({
   },
   FileReader: {
     screen: FileReaderScreen,
-    navigationOptions: () => ({
+    navigationOptions: ({ navigation }) => ({
       title: 'Receipts',
+      headerLeft: (
+        <HeaderBackButton
+          onPress={() => {
+            navigation.navigate('Receipts');
+          }}
+        />
+      ),
     }),
   },
   Profile: {

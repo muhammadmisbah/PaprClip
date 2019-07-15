@@ -24,7 +24,7 @@ class BarCodeScannerComponent extends React.Component {
       date: 'til feb 2019',
       total: '0.00',
     });
-    navigation.navigate('Receipts');
+    navigation.navigate('FileReader', { source: { uri: data } });
   };
 
   render() {
