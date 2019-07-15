@@ -2,6 +2,7 @@ export * from './container.common';
 export * from './content.common';
 export * from './div.common';
 export * from './span.common';
+export * from './touchable.common';
 export * from './button.common';
 export * from './flat_button.common';
 export * from './text.common.';

@@ -12,7 +12,7 @@ module.exports = function(api) {
             '@auth': './src/auth',
             '@common': './src/common',
             '@config': './src/config',
-            '@dashboard': './src/dashboard',
+            '@receipts': './src/receipts',
             '@profile': './src/profile',
             '@navigation': './src/navigation',
             '@snack': './src/snack',

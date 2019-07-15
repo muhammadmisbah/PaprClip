@@ -6,7 +6,7 @@ import {
 } from 'react-navigation';
 import { FlatButton } from '@common';
 import { AuthLoadingScreen, SignInScreen, RegistrationScreen } from '@auth';
-import { DashboardScreen } from '@dashboard';
+import { ReceiptsScreen, BarCodeScannerScreen } from '@receipts';
 import { ProfileScreen, PasswordChangeScreen } from '@profile';
 
 /* =============================================================================
@@ -30,8 +30,8 @@ const AuthStack = createStackNavigator(
 <AppStack />
 ============================================================================= */
 const AppStack = createStackNavigator({
-  Dashboard: {
-    screen: DashboardScreen,
+  Receipts: {
+    screen: ReceiptsScreen,
     navigationOptions: ({ navigation }) => ({
       title: 'Home',
       headerRight: (
@@ -41,6 +41,12 @@ const AppStack = createStackNavigator({
           onPress={() => navigation.navigate('Profile')}
         />
       ),
+    }),
+  },
+  BarCodeScanner: {
+    screen: BarCodeScannerScreen,
+    navigationOptions: () => ({
+      title: 'Receipts',
     }),
   },
   Profile: {
