@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Permissions from 'expo-permissions';
-import { Content, Fab } from '@common';
+import { Container, Fab, List } from '@common';
 import { ReceiptListItem } from './components';
 
 /* =============================================================================
@@ -42,15 +42,20 @@ class Receipts extends React.Component {
   render() {
     const { receipts } = this.props;
     return (
-      <Content padding={20}>
-        {receipts.map(item => (
-          <ReceiptListItem
-            data={item}
-            onReceiptOpen={this._handleOpenFileReader}
-          />
-        ))}
+      <Container>
+        <List
+          padding={20}
+          data={receipts}
+          keyExtractor="_id"
+          renderItem={({ item }) => (
+            <ReceiptListItem
+              data={item}
+              onReceiptOpen={this._handleOpenFileReader}
+            />
+          )}
+        />
         <Fab onPress={this._moveToBarCoderScanner} />
-      </Content>
+      </Container>
     );
   }
 }

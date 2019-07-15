@@ -5,9 +5,6 @@ import { FlatList } from 'react-native';
 
 /* flow type
 ============================================================================= */
-type ReactNodeWithoutStrings = React.ChildrenArray<
-  void | null | boolean | React.Element<any>
->;
 type Props = {
   data: Array<Object>,
   refreshing: boolean,
@@ -15,7 +12,7 @@ type Props = {
   ListEmptyComponent: React.ComponentType<any> | null,
   ListFooterComponent?: React.ComponentType<any> | null,
   keyExtractor: string,
-  renderItem: (item: any) => ReactNodeWithoutStrings,
+  renderItem: any,
   onFetchMore: () => void,
   onRefresh: () => void,
   padding?: number,
@@ -38,9 +35,6 @@ export const List = ({
   padding,
   style,
 }: Props) => {
-  const _renderItem = ({ item }) => {
-    renderItem(item);
-  };
   const _keyExtractor = item => item[keyExtractor];
   return (
     <FlatList
@@ -48,7 +42,7 @@ export const List = ({
       ListEmptyComponent={ListEmptyComponent}
       ListFooterComponent={ListFooterComponent}
       keyExtractor={_keyExtractor}
-      renderItem={_renderItem}
+      renderItem={renderItem}
       refreshing={!!refreshing}
       onRefresh={onRefresh}
       onEndReachedThreshold={0.5}
