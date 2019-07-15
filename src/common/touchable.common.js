@@ -58,7 +58,6 @@ export const Touchable = (props: Props) => {
   } = props;
   return (
     <TouchableOpacity
-      {...props}
       onPress={onPress}
       activeOpacity={activeOpacity}
       style={[
