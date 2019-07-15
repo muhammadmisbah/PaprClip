@@ -6,7 +6,11 @@ import {
 } from 'react-navigation';
 import { FlatButton } from '@common';
 import { AuthLoadingScreen, SignInScreen, RegistrationScreen } from '@auth';
-import { ReceiptsScreen, BarCodeScannerScreen } from '@receipts';
+import {
+  ReceiptsScreen,
+  BarCodeScannerScreen,
+  FileReaderScreen,
+} from '@receipts';
 import { ProfileScreen, PasswordChangeScreen } from '@profile';
 
 /* =============================================================================
@@ -45,6 +49,12 @@ const AppStack = createStackNavigator({
   },
   BarCodeScanner: {
     screen: BarCodeScannerScreen,
+    navigationOptions: () => ({
+      title: 'Receipts',
+    }),
+  },
+  FileReader: {
+    screen: FileReaderScreen,
     navigationOptions: () => ({
       title: 'Receipts',
     }),
