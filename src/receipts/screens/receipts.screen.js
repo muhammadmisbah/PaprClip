@@ -46,7 +46,6 @@ class Receipts extends React.Component {
         {receipts.map(item => (
           <ReceiptListItem
             data={item}
-            key={item.url}
             onReceiptOpen={this._handleOpenFileReader}
           />
         ))}

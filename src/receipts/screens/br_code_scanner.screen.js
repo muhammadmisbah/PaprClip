@@ -9,11 +9,14 @@ import { addReceipt } from '../receipts.actions';
 <BarCodeScannerComponent />
 ============================================================================= */
 class BarCodeScannerComponent extends React.Component {
+  state = { scanned: false };
+
   /**
    * When user scanned the qr code
    */
   _handleBarCodeScanned = ({ data }) => {
     const { addNewReceipt, navigation } = this.props;
+    this.setState({ scanned: true });
     addNewReceipt({
       _id: '123',
       url: data,
@@ -25,9 +28,10 @@ class BarCodeScannerComponent extends React.Component {
   };
 
   render() {
+    const { scanned } = this.state;
     return (
       <BarCodeScanner
-        onBarCodeScanned={this._handleBarCodeScanned}
+        onBarCodeScanned={scanned ? undefined : this._handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
     );
