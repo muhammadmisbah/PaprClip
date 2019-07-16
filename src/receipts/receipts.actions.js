@@ -1,18 +1,30 @@
 import { ADD_RECEIPT } from './receipts.type';
 import { showSnack } from '@snack';
-// import { api } from '@utils';
+import { getBase64 } from '@utils';
 
 /**
  * ADD_RECEIPT
  */
-export const addReceipt = data => async dispatch => {
+export const addReceipt = uri => async dispatch => {
   // let res;
   try {
     dispatch({ type: ADD_RECEIPT.LOADING });
     // res = await api('/receipt', 'post', user);
-    dispatch({ type: ADD_RECEIPT.SUCCESS, payload: data });
+    const base64 = await getBase64(uri);
+    dispatch({
+      type: ADD_RECEIPT.SUCCESS,
+      payload: {
+        uri,
+        _id: '123',
+        name: 'test',
+        date: 'til feb 2019',
+        total: '0.00',
+      },
+    });
+    return base64;
   } catch ({ message }) {
     dispatch({ type: ADD_RECEIPT.ERROR });
     dispatch(showSnack(message));
+    return 0;
   }
 };

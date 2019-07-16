@@ -5,7 +5,7 @@ import { ADD_RECEIPT } from './receipts.type';
 ============================================================================= */
 const INITIAL_STATE = {
   list: [],
-  loader: false,
+  addLoader: false,
 };
 
 /* ============================================================================
@@ -14,8 +14,14 @@ const INITIAL_STATE = {
 export const receiptsReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
+    // ADD_RECEIPT
+    case ADD_RECEIPT.LOADING:
+      return { ...state, addLoader: true };
     case ADD_RECEIPT.SUCCESS:
-      return { ...state, list: [...state.list, payload] };
+      return { ...state, addLoader: false, list: [...state.list, payload] };
+    case ADD_RECEIPT.ERROR:
+      return { ...state, addLoader: false };
+
     default:
       return state;
   }

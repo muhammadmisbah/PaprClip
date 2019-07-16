@@ -51,7 +51,7 @@ const AppStack = createStackNavigator({
   BarCodeScanner: {
     screen: BarCodeScannerScreen,
     navigationOptions: () => ({
-      title: 'Receipts',
+      header: null,
     }),
   },
   FileReader: {
