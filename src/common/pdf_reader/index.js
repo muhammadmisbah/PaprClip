@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   webview: {
     flex: 1,
-    backgroundColor: 'rgb(82, 86, 89)',
+    backgroundColor: '#FFF',
   },
 });
 
@@ -193,9 +193,12 @@ export class PdfReader extends Component<Props, State> {
       return (
         <View style={[styles.container, style]}>
           <WebView
+            onLoad={() => this.setState({ ready: true })}
+            allowFileAccess
             style={styles.webview}
             source={{ uri: htmlPath }}
             scrollEnabled
+            overScrollMode="never"
           />
         </View>
       );

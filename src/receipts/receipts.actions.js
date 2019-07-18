@@ -14,7 +14,7 @@ export const addReceipt = uri => async dispatch => {
     dispatch({
       type: ADD_RECEIPT.SUCCESS,
       payload: {
-        uri,
+        source: { base64 },
         _id: '123',
         name: 'test',
         date: 'til feb 2019',

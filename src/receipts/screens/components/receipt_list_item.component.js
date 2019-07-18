@@ -6,9 +6,9 @@ import { Div, Touchable, CustomText } from '@common';
 <ReceiptListItem />
 ============================================================================= */
 export const ReceiptListItem = ({ data, onReceiptOpen }) => {
-  const { name, date, total, url } = data;
+  const { name, date, total, source } = data;
   return (
-    <Touchable style={styles.ListItem} onPress={() => onReceiptOpen(url)}>
+    <Touchable style={styles.ListItem} onPress={() => onReceiptOpen(source)}>
       <Div>
         <CustomText>{name}</CustomText>
         <CustomText>{date}</CustomText>

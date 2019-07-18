@@ -34,9 +34,9 @@ class Receipts extends React.Component {
   /**
    * when user want to see the file in pdf reader
    */
-  _handleOpenFileReader = uri => {
+  _handleOpenFileReader = source => {
     const { navigation } = this.props;
-    navigation.navigate('FileReader', { source: { uri } });
+    navigation.navigate('FileReader', { source });
   };
 
   render() {
