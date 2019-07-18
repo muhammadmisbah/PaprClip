@@ -9,12 +9,7 @@ import {
 } from 'react-native';
 import { FileSystem } from 'expo';
 
-const {
-  cacheDirectory,
-  writeAsStringAsync,
-  deleteAsync,
-  getInfoAsync,
-} = FileSystem;
+const { cacheDirectory, writeAsStringAsync, deleteAsync } = FileSystem;
 
 function viewerHtml(base64: string): string {
   return `
@@ -33,15 +28,9 @@ function viewerHtml(base64: string): string {
  </html>
 `;
 }
-const bundleJsPath = `${cacheDirectory}bundle.js`;
 const htmlPath = `${cacheDirectory}index.html`;
 
 async function writeWebViewReaderFileAsync(data: string): Promise<*> {
-  const { exist, md5 } = await getInfoAsync(bundleJsPath, { md5: true });
-  const bundleContainer = require('./bundleContainer');
-  if (!exist || bundleContainer.getBundleMd5() !== md5) {
-    await writeAsStringAsync(bundleJsPath, bundleContainer.getBundle());
-  }
   await writeAsStringAsync(htmlPath, viewerHtml(data));
 }
 
@@ -53,10 +42,11 @@ function readAsTextAsync(mediaBlob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     try {
       const reader = new FileReader();
-      reader.onloadend = e => {
+      reader.onloadend = () => {
         if (typeof reader.result === 'string') {
           return resolve(reader.result);
         }
+        // eslint-disable-next-line prefer-promise-reject-errors
         return reject(
           `Unable to get result of file due to bad type, waiting string and getting ${typeof reader.result}.`
         );
@@ -109,7 +99,7 @@ type Props = {
     uri?: string,
     base64?: string,
   },
-  style: object,
+  style: any,
 };
 
 type State = {
@@ -127,7 +117,8 @@ export class PdfReader extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    if (this.state.android) {
+    const { android } = this.state;
+    if (android) {
       removeFilesAsync();
     }
   }
