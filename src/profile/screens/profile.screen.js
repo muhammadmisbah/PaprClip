@@ -131,15 +131,17 @@ class Profile extends React.Component {
               }}
               onChangeText={text => this._handleInputText('email', text)}
             />
-            <Button
-              title="Update Profile"
-              width="100%"
-              marginVertical={15}
-              backgroundColor="#04A5CF"
-              loader={loader}
-              disabled={!disable}
-              onPress={this._handleUpdateProfile}
-            />
+            {disable ? (
+              <Button
+                title="Update Profile"
+                width="100%"
+                marginVertical={15}
+                backgroundColor="#04A5CF"
+                loader={loader}
+                disabled={!disable}
+                onPress={this._handleUpdateProfile}
+              />
+            ) : null}
             {disable ? (
               <Div center margin={20}>
                 <FlatButton
