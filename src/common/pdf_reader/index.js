@@ -28,9 +28,12 @@ function viewerHtml(base64: string): string {
  </html>
 `;
 }
+const bundleJsPath = `${cacheDirectory}bundle.js`;
 const htmlPath = `${cacheDirectory}index.html`;
 
 async function writeWebViewReaderFileAsync(data: string): Promise<*> {
+  const bundleContainer = require('./bundleContainer');
+  await writeAsStringAsync(bundleJsPath, bundleContainer.getBundle());
   await writeAsStringAsync(htmlPath, viewerHtml(data));
 }
 
