@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Div, Touchable, CustomText } from '@common';
+import { Div, Touchable, CustomText } from 'common';
 
 /* =============================================================================
 <ReceiptListItem />

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
-import { BASE_URL } from '@config';
+import { BASE_URL } from 'config';
 
 export const api = async (url, method, body) => {
   /**

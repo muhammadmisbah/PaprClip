@@ -10,4 +10,4 @@ export * from './input_text.common';
 export * from './flat_list.common';
 export * from './fab.common';
 export * from './loader_view.common';
-export * from './pdf_reader';
+// export * from './pdf_reader';

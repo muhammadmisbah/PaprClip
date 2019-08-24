@@ -7,11 +7,11 @@ import {
   CustomInputText,
   Button,
   FlatButton,
-} from '@common';
+} from 'common';
 
 import { updateProfile } from '../profile.actions';
-import { logout } from '@auth';
-import { showSnack } from '@snack';
+import { logout } from 'auth';
+import { showSnack } from 'snack';
 
 /* =============================================================================
 <Profile />

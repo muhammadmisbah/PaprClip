@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { api } from '@utils';
+import { api } from 'utils';
 import {
   LOGIN,
   FACEBOOK_LOGIN,
@@ -8,7 +8,7 @@ import {
   REGISTRATION,
   LOGOUT,
 } from './auth.type';
-import { showSnack } from '@snack';
+import { showSnack } from 'snack';
 
 /**
  * LOGIN

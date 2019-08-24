@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Image, StyleSheet } from 'react-native';
-import * as GoogleSignIn from 'expo-google-sign-in';
-import * as Facebook from 'expo-facebook';
+import { Image, StyleSheet, Platform } from 'react-native';
+import { FBLoginManager } from 'react-native-facebook-login';
+import { GoogleSignin } from 'react-native-google-signin';
 import {
   Container,
   Content,
@@ -12,11 +12,13 @@ import {
   CustomInputText,
   Button,
   FlatButton,
-} from '@common';
+} from 'common';
+import { showSnack } from 'snack';
 import LogoImage from './img/logo.png';
 
 import { login, facebookLogin, googleLogin } from '../auth.actions';
-import { showSnack } from '@snack';
+
+GoogleSignin.configure();
 
 /* =============================================================================
 <SignIn />
@@ -27,6 +29,15 @@ class SignIn extends React.Component {
   inputText2 = null;
 
   state = { email: '', password: '' };
+
+  async componentDidMount() {
+    const fbView =
+      Platform.OS === 'ios'
+        ? FBLoginManager.LoginBehaviors.Web
+        : FBLoginManager.LoginBehaviors.WebView;
+
+    await FBLoginManager.setLoginBehavior(fbView);
+  }
 
   /**
    * when user login with email
@@ -56,24 +67,18 @@ class SignIn extends React.Component {
    * when user login with facebook
    */
   _handleFaceBookLogin = async () => {
-    const { userFacebookLogin, showError, navigation } = this.props;
-    try {
-      const { type, token } = await Facebook.logInWithReadPermissionsAsync(
-        '2064932817149430',
-        {
-          permissions: ['public_profile', 'email'],
+    const { userFacebookLogin, navigation } = this.props;
+    FBLoginManager.loginWithPermissions(
+      ['email', 'user_friends'],
+      async (error, data) => {
+        if (!error) {
+          const exitCode = await userFacebookLogin(data.credentials.token);
+          if (exitCode) navigation.navigate('App');
+        } else {
+          alert(error);
         }
-      );
-      if (type === 'success') {
-        const exitCode = await userFacebookLogin(token);
-        if (exitCode) navigation.navigate('App');
-      } else {
-        showError('Cancel facebook login');
       }
-    } catch ({ message }) {
-      // eslint-disable-next-line no-alert
-      alert(message);
-    }
+    );
   };
 
   /**
@@ -82,21 +87,16 @@ class SignIn extends React.Component {
   _handleGoogleLogin = async () => {
     const { userGoogleLogin, navigation } = this.props;
     try {
-      await GoogleSignIn.initAsync({
-        clientId:
-          '675137037686-gp498c2rmu967roou71cs42m0u6qv749.apps.googleusercontent.com',
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      const { user } = userInfo;
+      const exitCode = await userGoogleLogin({
+        uid: user.id,
+        firstName: user.givenName,
+        lastName: user.familyName,
+        email: user.email,
       });
-      await GoogleSignIn.askForPlayServicesAsync();
-      const { type, user } = await GoogleSignIn.signInAsync();
-      if (type === 'success') {
-        const exitCode = await userGoogleLogin({
-          uid: user.uid,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-        });
-        if (exitCode) navigation.navigate('App');
-      }
+      if (exitCode) navigation.navigate('App');
     } catch ({ message }) {
       // eslint-disable-next-line no-alert
       alert(message);

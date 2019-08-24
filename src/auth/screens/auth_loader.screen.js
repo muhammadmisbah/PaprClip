@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ActivityIndicator } from 'react-native';
-import { Div } from '@common';
+import { Div } from 'common';
 import { loginStatus } from '../auth.actions';
 
 /* =============================================================================

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Image, StyleSheet, Dimensions } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import { CustomText, FlatButton } from '@common';
+import { Image, StyleSheet } from 'react-native';
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import { Div, CustomText, FlatButton } from 'common';
 import QRImage from './img/qr_code.png';
 
 import { addReceipt } from '../receipts.actions';
@@ -11,14 +11,11 @@ import { addReceipt } from '../receipts.actions';
 <BarCodeScannerComponent />
 ============================================================================= */
 class BarCodeScannerComponent extends React.Component {
-  state = { scanned: false };
-
   /**
    * When user scanned the qr code
    */
   _handleBarCodeScanned = async ({ data }) => {
     const { addNewReceipt, navigation } = this.props;
-    this.setState({ scanned: true });
     const base64 = await addNewReceipt(data);
     if (base64) navigation.navigate('FileReader', { source: { uri: base64 } });
   };
@@ -29,30 +26,34 @@ class BarCodeScannerComponent extends React.Component {
   };
 
   render() {
-    const { scanned } = this.state;
     const { loader } = this.props;
     return (
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : this._handleBarCodeScanned}
-        style={styles.BarCodeStyle}
-      >
-        <CustomText color="#FFF" fontSize={40} marginVertical={20}>
-          PaprClip
-        </CustomText>
-        <Image style={styles.QRImageStyle} source={QRImage} />
-        {loader ? (
-          <CustomText color="#FFF" fontSize={25} marginVertical={20}>
-            Processing ...
-          </CustomText>
-        ) : (
-          <FlatButton
-            bold
-            color="#FFF"
-            title="Cancel"
-            onPress={this._moveBackToReceiptsPage}
-          />
-        )}
-      </BarCodeScanner>
+      <QRCodeScanner
+        showMarker
+        containerStyle={styles.BarCodeStyle}
+        cameraStyle={styles.BarCodeStyle}
+        onRead={this._handleBarCodeScanned}
+        customMarker={
+          <Div center>
+            <CustomText color="#FFF" fontSize={40} marginVertical={20}>
+              PaprClip
+            </CustomText>
+            <Image style={styles.QRImageStyle} source={QRImage} />
+            {loader ? (
+              <CustomText color="#FFF" fontSize={25} marginVertical={20}>
+                Processing ...
+              </CustomText>
+            ) : (
+              <FlatButton
+                bold
+                color="#FFF"
+                title="Cancel"
+                onPress={this._moveBackToReceiptsPage}
+              />
+            )}
+          </Div>
+        }
+      />
     );
   }
 }
@@ -60,8 +61,7 @@ class BarCodeScannerComponent extends React.Component {
 ============================================================================= */
 const styles = StyleSheet.create({
   BarCodeStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height + 50,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

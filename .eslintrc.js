@@ -1,6 +1,7 @@
-{
-  "parser": "babel-eslint",
+module.exports = {
+  root: true,
   "extends": [
+    "@react-native-community",
     "airbnb",
     "prettier",
     "prettier/react"
@@ -31,14 +32,14 @@
           "./src"
         ],
         "alias": {
-          "@auth": "./src/auth",
-          "@common": "./src/common",
-          "@config": "./src/config",
-          "@receipts": "./src/receipts",
-          "@profile": "./src/profile",
-          "@navigation": "./src/navigation",
-          "@snack": "./src/snack",
-          "@utils": "./src/utils"
+          "auth": "./src/auth",
+          "common": "./src/common",
+          "config": "./src/config",
+          "receipts": "./src/receipts",
+          "profile": "./src/profile",
+          "navigation": "./src/navigation",
+          "snack": "./src/snack",
+          "utils": "./src/utils"
         }
       }
     }
@@ -74,4 +75,4 @@
       }
     ]
   }
-}
+};

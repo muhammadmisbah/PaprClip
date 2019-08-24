@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as Permissions from 'expo-permissions';
-import { Container, Fab, List } from '@common';
+// import * as Permissions from 'expo-permissions';
+import { Container, Fab, List } from 'common';
 import { ReceiptListItem } from './components';
 
 /* =============================================================================
 <Receipts />
 ============================================================================= */
 class Receipts extends React.Component {
-  state = { hasCameraPermission: null };
+  state = { hasCameraPermission: true };
 
   componentDidMount() {
     this._getPermissionsAsync();
@@ -16,8 +16,8 @@ class Receipts extends React.Component {
 
   // asking camera permission
   _getPermissionsAsync = async () => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === 'granted' });
+    // const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    // this.setState({ hasCameraPermission: status === 'granted' });
   };
 
   /**

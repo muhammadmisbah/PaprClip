@@ -1,6 +1,6 @@
 import { UPDATE_PROFILE, UPDATE_PASSWORD } from './profile.type';
-import { showSnack } from '@snack';
-import { api } from '@utils';
+import { showSnack } from 'snack';
+import { api } from 'utils';
 
 /**
  * UPDATE_PROFILE

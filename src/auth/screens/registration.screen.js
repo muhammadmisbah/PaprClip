@@ -10,11 +10,11 @@ import {
   CustomInputText,
   Button,
   FlatButton,
-} from '@common';
+} from 'common';
 import LogoImage from './img/logo.png';
 
 import { registration } from '../auth.actions';
-import { showSnack } from '@snack';
+import { showSnack } from 'snack';
 
 /* =============================================================================
 <Registration />

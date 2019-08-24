@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { AppContainer } from '@navigation';
+import { AppContainer } from 'navigation';
+import { Snack } from 'snack';
 import { configureStore } from './store';
-import { Snack } from '@snack';
 
 const SetUp = () => {
   return (

@@ -1,6 +1,6 @@
+import { showSnack } from 'snack';
+import { getBase64 } from 'utils';
 import { ADD_RECEIPT } from './receipts.type';
-import { showSnack } from '@snack';
-import { getBase64 } from '@utils';
 
 /**
  * ADD_RECEIPT

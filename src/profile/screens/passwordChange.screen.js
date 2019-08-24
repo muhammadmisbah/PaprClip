@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Div, CustomInputText, Button } from '@common';
+import { Container, Content, Div, CustomInputText, Button } from 'common';
 
 import { updatePassword } from '../profile.actions';
-import { showSnack } from '@snack';
+import { showSnack } from 'snack';
 
 /* =============================================================================
 <PasswordChange />

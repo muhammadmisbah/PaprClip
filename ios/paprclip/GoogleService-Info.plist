@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>675137037686-36v57fl107b81rrfe32d5f7iv8kqi0dh.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.675137037686-36v57fl107b81rrfe32d5f7iv8kqi0dh</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>675137037686-eg65jqesmsmq1ieoslar65jeinkhkemg.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAyXyDfr654_BXwY0bNSgJBGrDX_wjz5Tk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>675137037686</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.paprclip</string>
+	<key>PROJECT_ID</key>
+	<string>paprclip23</string>
+	<key>STORAGE_BUCKET</key>
+	<string>paprclip23.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:675137037686:ios:58717eb221b4c011</string>
+	<key>DATABASE_URL</key>
+	<string>https://paprclip23.firebaseio.com</string>
+</dict>
+</plist>

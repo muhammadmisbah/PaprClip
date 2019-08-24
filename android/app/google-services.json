@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "675137037686-shsash3gf3nj9o1i5otbbl3qo816no0b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.paprclip",
+            "certificate_hash": "69e0d2bb1d94de6a89daea13ff1889793aa9e977"
+          }
+        },
+        {
+          "client_id": "675137037686-4pp63hkl4sdivsl8b0smjo2ft8m5hntd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.paprclip",
+            "certificate_hash": "322711c3ec743a9195cc45759e25d53ce53c0957"
+          }
+        },
+        {
           "client_id": "675137037686-gp498c2rmu967roou71cs42m0u6qv749.apps.googleusercontent.com",
           "client_type": 3
         }

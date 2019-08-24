@@ -1,19 +1,11 @@
 import React from 'react';
-import { WebView } from 'react-native';
-import { Div } from '@common';
+import Pdf from 'react-native-pdf';
 
 /* =============================================================================
 <FileReaderScreen />
 ============================================================================= */
 export const FileReaderScreen = ({ navigation }) => {
   const { source } = navigation.state.params;
-  return (
-    <Div flex={1}>
-      <WebView
-        originWhitelist={['http://*', 'https://*', 'file://*', 'data:*']}
-        source={source}
-        style={{ flex: 1 }}
-      />
-    </Div>
-  );
+  // eslint-disable-next-line react-native/no-inline-styles
+  return <Pdf source={source} style={{ flex: 1, width: '100%' }} />;
 };

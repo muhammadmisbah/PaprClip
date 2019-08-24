@@ -5,14 +5,14 @@ import {
   createAppContainer,
   HeaderBackButton,
 } from 'react-navigation';
-import { FlatButton } from '@common';
-import { AuthLoadingScreen, SignInScreen, RegistrationScreen } from '@auth';
+import { FlatButton } from 'common';
+import { AuthLoadingScreen, SignInScreen, RegistrationScreen } from 'auth';
 import {
   ReceiptsScreen,
   BarCodeScannerScreen,
   FileReaderScreen,
-} from '@receipts';
-import { ProfileScreen, PasswordChangeScreen } from '@profile';
+} from 'receipts';
+import { ProfileScreen, PasswordChangeScreen } from 'profile';
 
 /* =============================================================================
 <AuthStack />
