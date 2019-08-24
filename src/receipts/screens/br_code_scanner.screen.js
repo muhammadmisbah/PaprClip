@@ -20,7 +20,7 @@ class BarCodeScannerComponent extends React.Component {
     const { addNewReceipt, navigation } = this.props;
     this.setState({ scanned: true });
     const base64 = await addNewReceipt(data);
-    if (base64) navigation.navigate('FileReader', { source: { base64 } });
+    if (base64) navigation.navigate('FileReader', { source: { uri: base64 } });
   };
 
   _moveBackToReceiptsPage = () => {

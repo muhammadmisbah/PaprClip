@@ -9,7 +9,7 @@ export const getBase64 = url => {
     })
     .then(response => {
       const buffer = Buffer.from(response.data, 'base64').toString('base64');
-      return `data:application/pdf;base64,${buffer}`;
+      return `data:text/plain;base64,${buffer}`;
     })
     .catch(err => {
       throw new Error(err.message);
