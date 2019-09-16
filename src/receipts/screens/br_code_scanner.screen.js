@@ -5,12 +5,13 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { Div, CustomText, FlatButton } from 'common';
 import QRImage from './img/qr_code.png';
 import { addReceipt } from '../receipts.actions';
-let api = "http://http-test.000webhostapp.com/pin.php?code=";
 const { height, width } = Dimensions.get("window")
 
 /* =============================================================================
 <BarCodeScannerComponent />
 ============================================================================= */
+let api = "http://http-test.000webhostapp.com/pin.php?code=";
+
 class BarCodeScannerComponent extends React.Component {
   /**
    * When user scanned the qr code
@@ -18,7 +19,7 @@ class BarCodeScannerComponent extends React.Component {
   constructor() {
     super()
     this.state = {
-      pin: "5648",
+      pin: "",
       error: "",
       loader: false
     }
@@ -39,13 +40,16 @@ class BarCodeScannerComponent extends React.Component {
           this.setState({ error: "Please enter correct pin number", loader: false })
         }
         else {
-          addNewReceipt(res).then((uri) => {
+          let url = res.slice(res.indexOf('url=') + 4, res.lastIndexOf('"'));
+          console.log(url)
+          addNewReceipt(url).then((uri) => {
             this.setState({ pin: "", error: "", loader: false })
             navigation.navigate('FileReader', { source: { uri } });
           })
         }
       })
       .catch(err => {
+        console.log(err)
         this.setState({ error: err.message, loader: false })
       })
   };

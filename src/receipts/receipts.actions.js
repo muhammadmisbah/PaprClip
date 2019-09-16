@@ -16,9 +16,9 @@ export const addReceipt = uri => async dispatch => {
       payload: {
         source: { uri: base64 },
         _id: '123',
-        name: 'test',
-        date: 'til feb 2019',
-        total: '0.00',
+        name: 'ABCDE',
+        date: '24-08-2019',
+        total: '1308.30',
       },
     });
     return base64;
