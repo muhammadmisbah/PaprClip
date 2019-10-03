@@ -19,6 +19,8 @@ export const receiptsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, addLoader: true };
     case ADD_RECEIPT.SUCCESS:
       return { ...state, addLoader: false, list: [...state.list, payload] };
+    case ADD_RECEIPT.UPDATE:
+      return { ...state, addLoader: false, list: [...payload] };
     case ADD_RECEIPT.ERROR:
       return { ...state, addLoader: false };
 
