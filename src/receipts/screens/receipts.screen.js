@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import * as Permissions from 'expo-permissions';
-import { View, Text } from "react-native"
+import { View, Text, Alert } from "react-native"
 import { Container, Fab, List } from 'common';
 import { ReceiptListItem } from './components';
 
@@ -67,10 +67,22 @@ class Receipts extends React.Component {
         </View>
         ,
         onPress: () => {
-          deleteReceipts({
-            list: receipts,
-            index: item.index
-          })
+          Alert.alert("Delete", `Are you sure to delete ${item.name} receipt of ${item.date}`,
+            [
+              {
+                text: "Yes",
+                onPress: () => {
+                  deleteReceipts({
+                    list: receipts,
+                    index: item.index
+                  })
+                }
+              },
+              {
+                text: "No",
+                style: "cancel"
+              },
+            ])
         },
       }
     ]
