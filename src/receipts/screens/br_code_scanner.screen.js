@@ -60,18 +60,23 @@ class BarCodeScannerComponent extends React.Component {
     }
   }
   clearCode = () => {
-    // let fileValues = {
-    //   name: "Kuch Bhi",
-    //   total: "1234",
-    //   _id: 321,
-    //   date: "18-09-2019",
-    //   uri: "https://bill321.s3.us-east-2.amazonaws.com/MyStore/MyStore_147.00_18-17-51__18-09-2019_.pdf"
-    // }
+    ///////////// Temporary Code /////////////
+    let url = "https://bill321.s3.us-east-2.amazonaws.com/MyStore/MyStore_147.00_18-17-51__18-09-2019_.pdf";
+    let fileNameValues = (url.slice(url.lastIndexOf("/") + 1)).split("_");
+    let fileValues = {
+      name: fileNameValues[0],
+      total: fileNameValues[1],
+      _id: fileNameValues[2],
+      date: fileNameValues[fileNameValues.length - 2],
+      uri: url
+    }
 
-    // this.props.addNewReceipt(fileValues).then((uri) => {
-    //   this.setState({ pin: "", error: "", loader: false })
-    //   this.props.navigation.navigate('FileReader', { source: { uri } });
-    // })
+    this.props.addNewReceipt(fileValues).then((uri) => {
+      this.setState({ pin: "", error: "", loader: false })
+      this.props.navigation.navigate('FileReader', { source: { uri } });
+    })
+    /////////////////////////////////////////////
+
     this.code["code1"].focus()
     this.setState({
       code1: '',
